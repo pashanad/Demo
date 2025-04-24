@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>User List</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f7f9fc;
+            margin: 40px;
+            color: #333;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 80%;
+            margin: 0 auto 30px;
+            border-collapse: collapse;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            background-color: white;
+        }
+
+        th, td {
+            padding: 12px 18px;
+            border-bottom: 1px solid #ddd;
+            text-align: left;
+        }
+
+        th {
+            background-color: #4CAF50;
+            color: white;
+        }
+
+        tr:hover {
+            background-color: #f1f1f1;
+        }
+
+        a.button {
+            display: inline-block;
+            margin: 0 auto;
+            text-decoration: none;
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border-radius: 6px;
+            transition: background-color 0.3s ease;
+        }
+
+        a.button:hover {
+            background-color: #45a049;
+        }
+
+        .center {
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+
+<h1>User List</h1>
+
+<table>
+    <thead>
+    <tr>
+        <th>Name</th>
+        <th>Last Name</th>
+        <th>Age</th>
+        <th>ID</th>
+    </tr>
+    </thead>
+    <tbody>
+    <tr th:each="user : ${list}" th:onclick="|window.location='/users/${user.id}'|" style="cursor: pointer;">
+        <td th:text="${user.name}">Name</td>
+        <td th:text="${user.lastName}">Last Name</td>
+        <td th:text="${user.age}">Age</td>
+        <td th:text="${user.id}">ID</td>
+    </tr>
+    </tbody>
+</table>
+
+<div class="center">
+    <a class="button" th:href="@{/users/new}">Create New User</a>
+</div>
+
+</body>
+</html>
