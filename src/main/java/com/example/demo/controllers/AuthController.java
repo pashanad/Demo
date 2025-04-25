@@ -14,8 +14,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.Optional;
-
 @Controller
 @AllArgsConstructor
 @RequestMapping("/auth")
@@ -40,7 +38,13 @@ public class AuthController {
             Role defaultRole = roleDBService.findByRoleName("USER");
             user.getRoles().add(defaultRole);
         }
+
         userDBService.save(user);
-        return "redirect:/login";
+        return "redirect:/user";
+    }
+
+    @GetMapping("/custom-login")
+    public String loginPage(){
+        return "login";
     }
 }

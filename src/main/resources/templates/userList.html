@@ -73,7 +73,7 @@
     </tr>
     </thead>
     <tbody>
-    <tr th:each="user : ${list}" th:onclick="|window.location='/users/${user.id}'|" style="cursor: pointer;">
+    <tr th:each="user : ${list}" th:onclick="|window.location='/user/${user.id}'|" style="cursor: pointer;">
         <td th:text="${user.name}">Name</td>
         <td th:text="${user.lastName}">Last Name</td>
         <td th:text="${user.age}">Age</td>
@@ -83,7 +83,14 @@
 </table>
 
 <div class="center">
-    <a class="button" th:href="@{/users/new}">Create New User</a>
+    <a class="button" th:href="@{/auth/new}">Create New User</a>
+    <form action="/logout" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+        <input type="submit" value="Logout" />
+    </form>
+    <form action="/user/me" method="get">
+        <input type="submit" value="Show Me" />
+    </form>
 </div>
 
 </body>

@@ -80,7 +80,7 @@
 
 <h1>Create New User</h1>
 
-<form th:method="POST" th:action="@{/new}" th:object="${user}">
+<form th:method="POST" th:action="@{/auth/new}" th:object="${user}">
     <label for="name">Enter name:</label>
     <input type="text" th:field="*{name}" id="name"/>
     <div class="error" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></div>
@@ -110,7 +110,7 @@
     <input type="submit" value="Create!"/>
 </form>
 
-<a class="back-link" th:href="@{/users}">← Back to User List</a>
+<a class="back-link" th:href="@{/userlist}">← Back to User List</a>
 
 </body>
 </html>

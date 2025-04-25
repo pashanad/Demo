@@ -7,6 +7,7 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
@@ -36,16 +37,24 @@ public class WebSecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers("/", "/index","/auth/new").permitAll()
+                        .requestMatchers("/login", "/", "/index","/auth/new","/auth/perform_login").permitAll()
                         .requestMatchers("/userlist").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .formLogin(form -> form
+                        .loginPage("/auth/custom-login")
+                        .loginProcessingUrl("/login")
+                        .failureUrl("/auth/custom-login?error=true")
                         .successHandler(successUserHandler)
                         .permitAll()
                 )
-                .logout(logout -> logout.permitAll());
-
+                .logout(logout -> logout
+                        .logoutUrl("/logout")
+                        .logoutSuccessUrl("/auth/custom-login")
+                        .invalidateHttpSession(true)
+                        .deleteCookies("JSESSIONID")
+                        .permitAll()
+                );
         return http.build();
     }
 
@@ -65,6 +74,12 @@ public class WebSecurityConfig {
         return  authenticationManagerBuilder.build();
 
     }
+
+    @Bean
+    public UserDetailsService userDetailsService() {
+        return myUserDetailService;
+    }
+
 
 //    аутентификация inMemory
 

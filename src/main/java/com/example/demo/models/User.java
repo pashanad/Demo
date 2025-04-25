@@ -24,7 +24,6 @@ public class User{
     private String username;
 
     @NotEmpty(message = "The password must not be empty.")
-    @Size(min = 6, max = 30, message = "Enter from 6 to 30 characters.")
     @Column(name= "password")
     private String password;
 
