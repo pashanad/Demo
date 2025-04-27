@@ -40,7 +40,7 @@ public class AuthController {
         }
 
         userDBService.save(user);
-        return "redirect:/user";
+        return "redirect:/userlist";
     }
 
     @GetMapping("/custom-login")

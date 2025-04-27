@@ -2,6 +2,7 @@ package com.example.demo.controllers;
 
 import com.example.demo.configs.CustomUserDetails;
 import com.example.demo.models.User;
+import com.example.demo.models.UserDTO;
 import com.example.demo.services.UserDBService;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
@@ -38,7 +39,7 @@ public class UserController {
         if (isAdmin) {
             return "show";
         }
-        return "user";
+        return "userlist";
     }
 
     @GetMapping("/user/me")
@@ -64,7 +65,7 @@ public class UserController {
     }
 
     @PatchMapping("/user/{id}/update")
-    public String update(@ModelAttribute ("user") @Valid User newUser, BindingResult bindingResult, @PathVariable Long id){
+    public String update(@ModelAttribute ("user") @Valid UserDTO newUser, BindingResult bindingResult, @PathVariable Long id){
         if (bindingResult.hasErrors()){
             bindingResult.getAllErrors().forEach(error -> System.out.println(error.getDefaultMessage()));
             return "update";
@@ -73,7 +74,7 @@ public class UserController {
         return "redirect:/user/{id}";
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping("/user/{id}")
     public String deleteUser(@PathVariable Long id){
         userDBService.removeUserById(id);
         return "redirect:/userlist";

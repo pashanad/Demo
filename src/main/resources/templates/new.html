@@ -101,11 +101,6 @@
     <input type="text" th:field="*{password}" id="password"/>
     <div class="error" th:if="${#fields.hasErrors('password')}" th:errors="*{password}"></div>
 
-    <label for="roles">Select roles:</label>
-    <select th:field="*{roles}" id="roles" multiple="multiple">
-        <option th:each="role : ${roles}" th:value="${role.id}" th:text="${role.roleName}"></option>
-    </select>
-    <div class="error" th:if="${#fields.hasErrors('roles')}" th:errors="*{roles}"></div>
 
     <input type="submit" value="Create!"/>
 </form>

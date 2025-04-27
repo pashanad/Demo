@@ -82,7 +82,9 @@
 <h1>Login</h1>
 
 <form th:action="@{/login}" method="post">
-
+  <div th:if="${param.error}" class="error">
+    Invalid username or password.
+  </div>
   <label for="username">Username:</label>
   <input type="text" id="username" name="username"><br>
 
@@ -90,6 +92,7 @@
   <input type="password" id="password" name="password"><br>
 
   <input type="submit" value="Login"/>
+
 </form>
 
 <a class="back-link" th:href="@{/auth/new}">Create New User</a>

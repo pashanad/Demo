@@ -2,6 +2,7 @@ package com.example.demo.services;
 
 import com.example.demo.models.Role;
 import com.example.demo.models.User;
+import com.example.demo.models.UserDTO;
 import com.example.demo.repositories.UserRepositories;
 import lombok.AllArgsConstructor;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -36,13 +37,11 @@ public class UserDBService{
     }
 
     @Transactional
-    public void updateUser(Long id, User newUser){
+    public void updateUser(Long id, UserDTO newUser){
         User user = findUserById(id).orElseThrow(() -> new UsernameNotFoundException("User not Found"));
         user.setName(newUser.getName());
         user.setLastName(newUser.getLastName());
         user.setAge(newUser.getAge());
-        System.out.println("UJsaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
-        userRepositories.saveAndFlush(user);
     }
 
     @Transactional

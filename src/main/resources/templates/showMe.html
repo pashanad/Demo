@@ -79,16 +79,15 @@
   <p th:text="'ID: ' + ${user.id}">ID: 1</p>
 
   <div class="actions">
-    <a class="button" th:href="@{/user/{id}/update (id=${user.id})}">Update</a>
-    <a class="button" th:href="@{/userlist}">Back</a>
-    <form th:method="POST" th:action="@{/user/{id}(id=${user.id})}">
-      <input type="hidden" name="_method" value="DELETE"/>
-      <input type="submit" value="Delete!"/>
-    </form>
+<!--    <a class="button" th:href="@{/user/{id}/update (id=${user.id})}">Update</a>-->
+    <a class="button" th:href="@{/user}">Back</a>
+
+
     <form action="/logout" method="post">
       <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
       <input type="submit" value="Logout" />
     </form>
+
   </div>
 </div>
 
