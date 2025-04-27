@@ -9,10 +9,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @Controller
 @AllArgsConstructor
@@ -23,28 +20,15 @@ public class AuthController {
     private final RoleDBService roleDBService;
 
 
-    @GetMapping("/new")
-    public String newUser(@ModelAttribute("user") User user, Model model) {
-        model.addAttribute("roles" , roleDBService.findAll());
-        return "new";
-    }
-
     @PostMapping("/new")
-    public String createUser(@ModelAttribute("user") @Valid User user, BindingResult bindingResult){
-        if(bindingResult.hasErrors()){
-            return "new";
-        }
-        if (user.getRoles().isEmpty()) {
-            Role defaultRole = roleDBService.findByRoleName("USER");
-            user.getRoles().add(defaultRole);
-        }
-
+    public User newUser(@RequestBody User user) {
+        user.setRoles(roleDBService.findByRoleName("USER").stream().toList());
         userDBService.save(user);
-        return "redirect:/userlist";
+        return user;
     }
 
-    @GetMapping("/custom-login")
-    public String loginPage(){
-        return "login";
-    }
+//    @PostMapping("/custom-login")
+//    public String loginPage(){
+//        return "login";
+//    }
 }

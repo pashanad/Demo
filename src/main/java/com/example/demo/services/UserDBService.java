@@ -37,11 +37,12 @@ public class UserDBService{
     }
 
     @Transactional
-    public void updateUser(Long id, UserDTO newUser){
+    public User updateUser(Long id, UserDTO newUser){
         User user = findUserById(id).orElseThrow(() -> new UsernameNotFoundException("User not Found"));
         user.setName(newUser.getName());
         user.setLastName(newUser.getLastName());
         user.setAge(newUser.getAge());
+        return user;
     }
 
     @Transactional
