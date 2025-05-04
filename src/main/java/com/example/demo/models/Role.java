@@ -2,10 +2,13 @@ package com.example.demo.models;
 
 
 import jakarta.persistence.*;
-import lombok.Data;
+import lombok.*;
 
 @Entity
-@Data
+@Setter
+@Getter
+@AllArgsConstructor
+@NoArgsConstructor
 @Table(name = "roles")
 public class Role {
 
@@ -15,5 +18,4 @@ public class Role {
 
     @Column(name = "role", unique = true)
     private String roleName;
-
 }

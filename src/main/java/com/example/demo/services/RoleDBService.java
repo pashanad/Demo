@@ -18,4 +18,9 @@ public class RoleDBService {
     public Optional<Role> findByRoleName(String roleName ){
         return rolesRepository.findByRoleName(roleName);
     }
+
+    @Transactional
+    public void save(Role role) {
+        rolesRepository.save(role);
+    }
 }

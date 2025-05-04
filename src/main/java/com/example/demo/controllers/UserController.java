@@ -25,14 +25,14 @@ public class UserController {
     }
 
     @GetMapping("/user/{id}")
-    public User showId(@PathVariable Long id, @AuthenticationPrincipal CustomUserDetails customUserDetails){
+    public User showId(@PathVariable Long id){
         User user= userDBService.findUserById(id).orElseThrow(() -> new UsernameNotFoundException("User not found"));
 
-        boolean isAdmin = customUserDetails.getAuthorities().stream()
-                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
-        if (!isAdmin) {
-            throw new SecurityException("Access denied: only ADMIN can view user");
-        }
+//        boolean isAdmin = customUserDetails.getAuthorities().stream()
+//                .anyMatch(role -> role.getAuthority().equals("ROLE_ADMIN"));
+//        if (!isAdmin) {
+//            throw new SecurityException("Access denied: only ADMIN can view user");
+//        }
         return user;
     }
 
